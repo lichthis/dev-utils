@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          
+      - name: Build
+        run: cargo build --release
+        
+      - name: Package (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          7z a -tzip devutils-windows.zip ./target/release/dev-utils.exe
+          
+      - name: Package (macOS)
+        if: matrix.os == 'macos-latest'
+        run: |
+          tar -czf devutils-macos.tar.gz ./target/release/dev-utils
+          
+      - name: Package (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          tar -czf devutils-linux.tar.gz ./target/release/dev-utils
+          
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            devutils-*.zip
+            devutils-*.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

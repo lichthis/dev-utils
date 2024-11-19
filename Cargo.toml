@@ -1,0 +1,30 @@
+[package]
+name = "dev-utils"
+version = "0.1.0"
+edition = "2021"
+description = "A collection of development utilities"
+authors = ["licht"]
+license = "MIT"
+
+[package.metadata.bundle]
+name = "DevUtils"
+identifier = "com.licht.devutils"
+icon = ["assets/icon.svg"]
+version = "0.1.0"
+copyright = "Copyright (c) 2024 licht. All rights reserved."
+category = "Developer Tools"
+short_description = "Essential development utilities"
+long_description = """
+A collection of development utilities including JSON/YAML formatter,
+URL encoder/decoder, and more tools for developers.
+"""
+
+[dependencies]
+dioxus = { version = "0.5.1", features = ["desktop"] }
+dioxus-desktop = "0.5.1"
+serde_json = "1.0"
+serde_yaml = "0.9"
+json5 = "0.4"
+urlencoding = "2.1"
+arboard = "3.3"
+tokio = { version = "1.35", features = ["time", "rt-multi-thread"] }

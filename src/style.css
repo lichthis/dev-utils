@@ -1,0 +1,252 @@
+/* 全局样式 */
+:root {
+    --primary-color: #0077ED;
+    --secondary-color: #86868B;
+    --text-color: #1D1D1F;
+    --background-color: #FBFBFD;
+    --border-color: #D2D2D7;
+    --hover-color: #0066CC;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --transition-speed: 0.3s;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 32px;
+    box-sizing: border-box;
+    max-width: 1440px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* 工具选择器 */
+.tool-selector {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    justify-content: center;
+}
+
+.tool-selector button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 980px;
+    background: transparent;
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+.tool-selector button:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.tool-selector button.selected {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* 主工具容器 */
+.tool-container {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 24px var(--shadow-color);
+    overflow: hidden;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* 通用布局组件 */
+.format-container {
+    display: flex;
+    width: 100%;
+    gap: 48px;
+    padding: 32px;
+    overflow: hidden;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.section-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* 表单元素 */
+select {
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background-color: white;
+    font-size: 14px;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(0, 119, 237, 0.1);
+}
+
+label {
+    font-weight: 500;
+    color: var(--text-color);
+    margin-right: 12px;
+}
+
+/* 复制按钮 */
+.copy-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 8px 16px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: none;
+    border-radius: 980px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all var(--transition-speed) ease;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.content-wrapper:hover .copy-button {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.copy-button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.copy-button:disabled {
+    background-color: var(--secondary-color);
+    cursor: default;
+}
+
+/* 输入输出区域 */
+.input-section,
+.output-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.content-wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all var(--transition-speed) ease;
+}
+
+.content-wrapper:hover,
+.content-wrapper:focus-within {
+    border-color: var(--hover-color);
+}
+
+.content-area {
+    width: 100%;
+    height: 100%;
+    padding: 24px;
+    border: none;
+    font-family: -apple-system-monospace, 'SF Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    resize: none;
+    background-color: transparent;
+    color: var(--text-color);
+    transition: all var(--transition-speed) ease;
+    -webkit-appearance: none;
+}
+
+.content-area:focus {
+    outline: none;
+}
+
+/* JSON Formatter 样式 */
+.json-formatter .output-section .content-area {
+    background-color: var(--background-color);
+}
+
+/* URL Encoder 样式 */
+
+.url-encoder .output-section .section-header:not(:first-child) {
+    margin-top: 16px;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+    }
+
+    .format-container {
+        flex-direction: column;
+        gap: 24px;
+        padding: 16px;
+        overflow-y: auto;
+    }
+
+    .input-section,
+    .output-section {
+        overflow: visible;
+    }
+
+    .tool-selector {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .tool-selector button {
+        flex: 1;
+        min-width: 140px;
+    }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
